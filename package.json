@@ -4,9 +4,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node web.js"
   },
   "dependencies": {
+    "logfmt": "*",
     "express": "3.4.8",
     "jade": "*",
     "mongodb": "^1.4.0",
