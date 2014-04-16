@@ -7,16 +7,18 @@ var logfmt = require("logfmt");
 var twilio = require('twilio');
 
 var app = express(express.logger());
+app.use(express.bodyParser());  
 
-//enable CORS: Cross Domain Scripting
-app.use(function(req, res, next) {
+
+app.all('/incomingText', function(req, res, next) {
+  // Enabling CORS
+  // See http://stackoverflow.com/questions/11181546/node-js-express-cross-domain-scripting
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
 });
 
-
-app.use(express.json());    
+ 
 
 //Setup a mongo Uri
 var mongoUri = process.env.MONGOLAB_URI ||
@@ -28,14 +30,19 @@ var db = mongo.Db.connect(mongoUri, function (error, databaseConnection) {
 	db = databaseConnection;
 });
 
-app.use(express.logger());
-app.use(express.urlencoded());
-/*
-app.post('/', function (request, response){
-		db.collection("foodData", function(err, collection){
-			var user_Fooddoc = collection.find({username : req.body.username});
-			if (user_Fooddoc == null
-		}
-}
-*/
+
+app.post('/incomingText', function (request, response) {
+  response.set('Content-Type', 'text/json');
+    mongo.Db.connect(mongoUri, function (err, db) {
+      if(err){
+        response.send('500');
+      }
+      db.collection("texts", function (er, collection){
+      	var text = request.body;
+      	collection.insert({"textData": text}, function (err, r){});
+      	response.send('{"status":"good"}');
+      });
+    });
+});
+
 
