@@ -38,8 +38,10 @@ app.post('/incomingText', function (request, response) {
         response.send('500');
       }
       db.collection("texts", function (er, collection){
-      	var text = request.body;
-      	collection.insert({"textData": text}, function (err, r){});
+      	var text = request.body.Body;
+      	var from = request.body.From;
+      	console.log(text + "    " + from);
+      	collection.insert({"textData": text, "From": from}, function (err, r){});
       	response.send('{"status":"good"}');
       });
     });
