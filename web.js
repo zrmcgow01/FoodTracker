@@ -32,7 +32,6 @@ var db = mongo.Db.connect(mongoUri, function (error, databaseConnection) {
 
 
 app.post('/incomingText', function (request, response) {
-  response.set('Content-Type', 'text/json');
     mongo.Db.connect(mongoUri, function (err, db) {
       if(err){
         response.send('500');
