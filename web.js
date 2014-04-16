@@ -23,8 +23,10 @@ var mongoUri = process.env.MONGOLAB_URI ||
   process.env.MONGOHQ_URL ||
   'mongodb://localhost/local';
   
+var hundred = 100;
 
 app.use(express.logger());
 app.use(express.urlencoded());
-
+app.get('/', function(req, res){});
+//this change was made
 
