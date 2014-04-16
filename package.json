@@ -1,5 +1,6 @@
 {
-  "name": "application-name",
+  "name": "FoodTracker",
+  "main": "web.js",
   "version": "0.0.1",
   "private": true,
   "scripts": {
